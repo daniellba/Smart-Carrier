@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/GPS_Value_ID"
+        android:id="@+id/TextView"
         android:layout_width="98dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -18,13 +18,13 @@
         android:layout_marginBottom="10dp"
         android:text="GPS Value -"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/Location_Value_ID"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/TextView2"
+        app:layout_constraintEnd_toStartOf="@+id/GPS_Value_ID"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Follow_Me_ID"
+        android:id="@+id/Follow_Me_Btn"
         android:layout_width="151dp"
         android:layout_height="146dp"
         android:layout_marginStart="130dp"
@@ -36,13 +36,13 @@
         android:background="@drawable/round_button"
         android:text="Follow Me"
         app:backgroundTint="#09D1B3"
-        app:layout_constraintBottom_toTopOf="@+id/Manual_ID"
+        app:layout_constraintBottom_toTopOf="@+id/Manual_Btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/Location_Value_ID" />
 
     <TextView
-        android:id="@+id/Location_Value_ID"
+        android:id="@+id/TextView2"
         android:layout_width="115dp"
         android:layout_height="18dp"
         android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/GPS_Value_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -62,12 +62,12 @@
         android:layout_marginRight="87dp"
         android:layout_marginBottom="10dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintBottom_toTopOf="@+id/Location_Value_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Location_Value_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="136dp"
@@ -77,11 +77,11 @@
         android:layout_marginRight="87dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Location_Value_ID"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@+id/TextView2"
+        app:layout_constraintTop_toBottomOf="@+id/GPS_Value_ID" />
 
     <Button
-        android:id="@+id/Manual_ID"
+        android:id="@+id/Manual_Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="163dp"
@@ -95,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/Settings_ID"
+        android:id="@+id/Settings_Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="289dp"
@@ -108,6 +108,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/Location_Value_ID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
