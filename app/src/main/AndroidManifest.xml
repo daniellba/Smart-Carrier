@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ManualScreen" />
+        <activity android:name=".ManualScreen" android:screenOrientation="landscape"/>
         <activity android:name=".MainActivity" >
 
         </activity>
