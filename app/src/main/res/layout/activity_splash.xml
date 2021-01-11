@@ -11,9 +11,11 @@
       android:id="@+id/ImgView_Splash_ID"
       android:layout_width="414dp"
       android:layout_height="730dp"
-      android:src="@drawable/png_transparent_gohan_trunks_goku_vegeta_goten_one_punch_man_purple_cartoon_cell_thumbnail"
+      android:src="@drawable/whatsapp_image_2021_01_11_at_17_36_57"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.666"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
