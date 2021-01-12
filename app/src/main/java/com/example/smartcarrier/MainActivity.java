@@ -40,22 +40,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        //not sure if i'll do settings screen
-
-        /*Intent SettingScreen = new Intent(this, ManualScreen.class);
+        Intent SettingScreen = new Intent(this, ManualScreen.class);
         dSettings_Btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                startActivity(SettingScreen);
+                Intent numberIntent = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(numberIntent);
             }
-        });*/
-
-
-
-
-
+        });
 
         //define the TextView in order to wirte in the box the cordenations.
         GPS_Value = findViewById(R.id.GPS_Value_ID);
