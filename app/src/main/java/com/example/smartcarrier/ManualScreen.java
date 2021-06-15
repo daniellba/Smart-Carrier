@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
@@ -30,9 +29,9 @@ public class ManualScreen extends AppCompatActivity {
         Right_BTN = findViewById(R.id.Right_BTN);
 
         btAdapter = BluetoothAdapter.getDefaultAdapter(); //Bluetooth definition
-    //    System.out.println(btAdapter.getBondedDevices());
+        //    System.out.println(btAdapter.getBondedDevices());
         BluetoothDevice hc05 = btAdapter.getRemoteDevice("98:D3:51:F5:B4:73"); //connect to my hc-05 via mac adress
-     //   System.out.println(hc05.getName());
+        //   System.out.println(hc05.getName());
 
         int counter = 0;
         do {    //creating the socket, if fail, try twice more
@@ -55,18 +54,16 @@ public class ManualScreen extends AppCompatActivity {
                 BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                 btSocket.connect();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         BluetoothSocket finalBtSocket = btSocket;
 
-        Forward_BTN.setOnTouchListener(new View.OnTouchListener() {
+ /*       Forward_BTN.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 try {
-
                     OutputStream outputStream = finalBtSocket.getOutputStream();
                     outputStream.write(1);
                     System.out.println(outputStream);
@@ -76,6 +73,7 @@ public class ManualScreen extends AppCompatActivity {
                 return false;
             }
         });
+
 
         Backward_BTN.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -121,7 +119,21 @@ public class ManualScreen extends AppCompatActivity {
                 return false;
             }
         });
+*/
 
+        Forward_BTN.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                try {
+                    OutputStream outputStream = finalBtSocket.getOutputStream();
+                    outputStream.write(1);
+                    System.out.println(outputStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 //     InputStream inputStream = null; //receiving BT data
 //        try {
 //            inputStream = btSocket.getInputStream();
@@ -137,14 +149,17 @@ public class ManualScreen extends AppCompatActivity {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
-
-//        try {
-//            btSocket.close();
-//            System.out.println(btSocket.isConnected());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     }
-}
+        //if the user pressed back button
+        @Override
+        public void onBackPressed(){
+            System.out.println("back pressed");
+            super.onBackPressed();
+            try {
+                btSocket.close();
+                System.out.println(btSocket.isConnected());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
