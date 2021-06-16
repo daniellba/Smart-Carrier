@@ -85,25 +85,35 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
+                try {
+                    btSocket.close();
+                    System.out.println(btSocket.isConnected());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(ManualScreen);
             }
         });
 
 
-        Intent SettingScreen = new Intent(this, ManualScreen.class);
+        Intent SettingScreen = new Intent(this, SettingsActivity.class);
         dSettings_Btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                Intent numberIntent = new Intent(MainActivity.this,SettingsActivity.class);
-                startActivity(numberIntent);
+                //Intent numberIntent = new Intent(MainActivity.this,SettingsActivity.class);
+                try {
+                    btSocket.close();
+                    System.out.println(btSocket.isConnected());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                startActivity(SettingScreen);
             }
         });
 
         //define the TextView in order to wirte in the box the cordenations.
         GPS_Value = findViewById(R.id.GPS_Value_ID);
         Location_Value = findViewById(R.id.Location_Value_ID);
-
-
     }
 }

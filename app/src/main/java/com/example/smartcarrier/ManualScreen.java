@@ -60,7 +60,7 @@ public class ManualScreen extends AppCompatActivity {
 
         BluetoothSocket finalBtSocket = btSocket;
 
- /*       Forward_BTN.setOnTouchListener(new View.OnTouchListener() {
+        Forward_BTN.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 try {
@@ -119,9 +119,9 @@ public class ManualScreen extends AppCompatActivity {
                 return false;
             }
         });
-*/
 
-        Forward_BTN.setOnClickListener(new View.OnClickListener()
+
+   /*   Forward_BTN.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
@@ -133,7 +133,7 @@ public class ManualScreen extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 //     InputStream inputStream = null; //receiving BT data
 //        try {
 //            inputStream = btSocket.getInputStream();
