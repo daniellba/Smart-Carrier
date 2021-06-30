@@ -144,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                Intent numberIntent = new Intent(MainActivity.this,SettingsActivity.class);
-                startActivity(numberIntent);
                 try {
                     btSocket.close();
                     System.out.println(btSocket.isConnected());
