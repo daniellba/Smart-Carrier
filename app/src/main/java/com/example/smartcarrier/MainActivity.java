@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -150,15 +151,13 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                startActivity(SettingScreen);
+                startActivityForResult(SettingScreen, 1);
             }
         });
 
         //define the TextView in order to wirte in the box the cordenations.
         GPS_Value = findViewById(R.id.GPS_Value_ID);
         Location_Value = findViewById(R.id.Location_Value_ID);
-
-
     }
     private boolean isBetterLocation(Location location, Location currBest){
         if (currBest == null){
@@ -253,4 +252,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
+    void SettingsActivity(int requestCode, int resultCode, Intent data) throws IOException {
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String myStr = data.getStringExtra("Distance");
+                btSocket.getOutputStream().write(Integer.parseInt(myStr));
+            }
+        }
+    }
 }

@@ -6,27 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/settingsscreen"><![CDATA[
     tools:context=".SettingsActivity ">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ]]>
 
     <Button
@@ -60,14 +39,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="One Meter"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/RBTN_2_ID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Two Meter"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:id="@+id/RBTN_3_ID"
@@ -75,22 +56,22 @@
             android:layout_height="31dp"
             android:text="Three Meter"
             android:textColor="@color/white"
-            android:textColorHighlight="@color/black" />
+            android:textColorHighlight="@color/black"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 
     <TextView
         android:id="@+id/About_TXV"
-        android:layout_width="394dp"
-        android:layout_height="164dp"
+        android:layout_width="344dp"
+        android:layout_height="205dp"
         android:textColor="#00BCD4"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.927" />
+        app:layout_constraintVertical_bias="0.914" />
 
     <TextView
         android:id="@+id/Question_TXV"
@@ -131,9 +112,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.693" />
+        app:layout_constraintVertical_bias="0.522" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
