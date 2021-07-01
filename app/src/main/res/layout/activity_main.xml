@@ -7,18 +7,6 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/TextView"
-        android:layout_width="98dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:text="GPS Value -"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/Follow_Me_Btn"
         android:layout_width="151dp"
@@ -33,20 +21,6 @@
         app:layout_constraintVertical_bias="0.376" />
 
     <TextView
-        android:id="@+id/TextView2"
-        android:layout_width="115dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="8dp"
-        android:text="Location Value -"
-        android:textColor="#0B0A0A"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextView"
-        app:layout_constraintVertical_bias="0.011" />
-
-    <TextView
         android:id="@+id/GPS_Value_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,19 +30,6 @@
         app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/Location_Value_ID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.798"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GPS_Value_ID"
-        app:layout_constraintVertical_bias="0.01" />
 
     <Button
         android:id="@+id/Manual_Btn"
@@ -92,5 +53,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954" />
+
+    <Button
+        android:id="@+id/Reconnect_Btn"
+        android:layout_width="117dp"
+        android:layout_height="40dp"
+        android:text="Reconnect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,17 +27,24 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    BluetoothAdapter btAdapter= null;
-    BluetoothSocket btSocket = null;
-    static final UUID mUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    Button dFollow_Me_Btn, dManual_Btn, dSettings_Btn;
-    private TextView GPS_Value, Location_Value;
+    private BluetoothAdapter btAdapter = null;
+    private BluetoothSocket btSocket = null;
+
+    Button dFollow_Me_Btn, dManual_Btn, dSettings_Btn, dReconnect_Btn;
+    private TextView GPS_Value;
     private static final int ONE_MINUTE = 1000 * 60 * 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 3;
 
     LocationManager locationManager;
     Location currentBestLocation;
     LocationListener locationListener;
+
+    public BluetoothAdapter getBtAdapter() {
+        return btAdapter;
+    }
+    public BluetoothSocket getBtSocket() {
+        return btSocket;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +54,20 @@ public class MainActivity extends AppCompatActivity {
         dFollow_Me_Btn = findViewById(R.id.Follow_Me_Btn);
         dManual_Btn = findViewById(R.id.Manual_Btn);
         dSettings_Btn = findViewById(R.id.Settings_Btn);
-        btAdapter = BluetoothAdapter.getDefaultAdapter(); //Bluetooth definition
-        //    System.out.println(btAdapter.getBondedDevices());
-        BluetoothDevice hc05 = btAdapter.getRemoteDevice("98:D3:51:F5:B4:73"); //connect to my hc-05 via mac adress
-        //   System.out.println(hc05.getName());
+        dReconnect_Btn = findViewById(R.id.Reconnect_Btn);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        //define the TextView in order to write in the text box the cordenations.
+        GPS_Value = findViewById(R.id.GPS_Value_ID);
+
+        ConnectToBT();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         }
 
-        locationListener = new LocationListener() {
+        locationListener = new LocationListener()
+        {
             @Override
             public void onLocationChanged(Location location) {
                 // New Location found by the network location provider
@@ -76,41 +87,18 @@ public class MainActivity extends AppCompatActivity {
             public void onProviderDisabled(String provider) {}
         };
 
-        int counter = 0;
-        do {    //creating the socket, if fail, try twice more
-            try {
-                btSocket = hc05.createRfcommSocketToServiceRecord(mUUID);
-                System.out.println(btSocket);
-                btSocket.connect();
-                System.out.println(btSocket.isConnected());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            counter++;
-        } while (!btSocket.isConnected() && counter < 3);
-
-        try {
-            if (btSocket == null) {
-                btAdapter = BluetoothAdapter.getDefaultAdapter();
-                btSocket = hc05.createInsecureRfcommSocketToServiceRecord(mUUID);
-                BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-                btSocket.connect();
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
         // Register the listener with location manager to start requesting location data
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-        }else {
+        }
+        else
+            {
             initLocationRequest(locationListener);
         }
 
-        BluetoothSocket finalBtSocket = btSocket;
         dFollow_Me_Btn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -132,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     btSocket.close();
-                    System.out.println(btSocket.isConnected());
+                    btSocket = null;
+                    //System.out.println(btSocket.isConnected());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -147,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     btSocket.close();
-                    System.out.println(btSocket.isConnected());
+                    btSocket = null;
+                    //System.out.println(btSocket.isConnected());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -155,11 +145,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //define the TextView in order to wirte in the box the cordenations.
-        GPS_Value = findViewById(R.id.GPS_Value_ID);
-        Location_Value = findViewById(R.id.Location_Value_ID);
+        dReconnect_Btn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                if (btSocket == null)
+                {
+                    ConnectToBT();
+                    msg("Bluetooth is connected successfully.");
+                }
+                else
+                {
+                    msg("Bluetooth is already connected.");
+                }
+            }
+        });
     }
-    private boolean isBetterLocation(Location location, Location currBest){
+
+    private boolean isBetterLocation(Location location, Location currBest)
+    {
         if (currBest == null){
             // If we don't have a current best location, then this is it!
             return true;
@@ -199,14 +203,16 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    /** Checks whether two providers are the same */
-    private boolean isSameProvider(String provider1, String provider2) {
+    // Checks whether two providers are the same
+    private boolean isSameProvider(String provider1, String provider2)
+    {
         if (provider1 == null) {
             return provider2 == null;
         }
         return provider1.equals(provider2);
     }
 
+    //send the phone location to Arduino
     private void send(Location location)
     {
         if (btSocket!=null)
@@ -233,31 +239,70 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void Disconnect()
-    {
-        if (btSocket!=null) //If the btSocket is busy
-        {
-            try
-            {
-                btSocket.close(); //close connection
-            }
-            catch (IOException e)
-            { msg("Error");}
-        }
-        finish(); //return to the first layout
-    }
-
     private void msg(String s)
     {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
-    void SettingsActivity(int requestCode, int resultCode, Intent data) throws IOException {
+    //retrieve the distance data from SettingsActivity
+    void SettingsActivity(int requestCode, int resultCode, Intent data) throws IOException
+    {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 String myStr = data.getStringExtra("Distance");
                 btSocket.getOutputStream().write(Integer.parseInt(myStr));
             }
         }
+    }
+
+    public void ConnectToBT()
+    {
+        this.btSocket = btSocket;
+        this.btAdapter = btAdapter;
+        final UUID mUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
+        btAdapter = BluetoothAdapter.getDefaultAdapter(); //Bluetooth definition
+        //    System.out.println(btAdapter.getBondedDevices());
+        BluetoothDevice hc05 = btAdapter.getRemoteDevice("98:D3:51:F5:B4:73"); //connect to my hc-05 via mac adress
+        //   System.out.println(hc05.getName());
+
+        int counter = 0;
+        do {    //creating the socket, if fail, try twice more
+            try {
+                btSocket = hc05.createRfcommSocketToServiceRecord(mUUID);
+                System.out.println(btSocket);
+                btSocket.connect();
+                System.out.println(btSocket.isConnected());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            counter++;
+        } while (!btSocket.isConnected() && counter < 3);
+
+        try {
+            if (btSocket == null) {
+                btAdapter = BluetoothAdapter.getDefaultAdapter();
+                btSocket = hc05.createInsecureRfcommSocketToServiceRecord(mUUID);
+                BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                btSocket.connect();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BluetoothSocket finalBtSocket = btSocket;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try
+        {
+            btSocket.close(); //close connection
+        }
+        catch (IOException e)
+        { msg("Error - closing the socket.");}
+        finish(); //return to the first layout
     }
 }

@@ -153,12 +153,12 @@ public class ManualScreen extends AppCompatActivity {
         //if the user pressed back button
         @Override
         public void onBackPressed(){
-            System.out.println("back pressed");
             super.onBackPressed();
-            try {
+            try
+            {
                 btSocket.close();
-                System.out.println(btSocket.isConnected());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
