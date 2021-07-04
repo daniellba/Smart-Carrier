@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/*In this class I display all available songs in a list*/
 public class SongListActivity extends AppCompatActivity
 {
     private ListView songsListView;
@@ -36,7 +37,7 @@ public class SongListActivity extends AppCompatActivity
         songsListView.setAdapter(songAdapter);
         setSong();
 
-        //in the function below, we "listen" to the contact's entity, if pressed, we move to dialer
+        //In the function below, I "listen" to the contact's entity
         songsListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -53,6 +54,7 @@ public class SongListActivity extends AppCompatActivity
         });
     }
 
+    //"Injecting" each song to the list using this function
     public void setSong()
     {
         Song tempSong;

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+/*How the song will be represented*/
 public class SongAdapter extends ArrayAdapter<Song>
 {
     public SongAdapter(Context context, ArrayList<Song> list)
@@ -27,5 +28,4 @@ public class SongAdapter extends ArrayAdapter<Song>
 
         return convertView;
     }
-
 }

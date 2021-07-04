@@ -3,7 +3,6 @@ package com.example.smartcarrier;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,11 +18,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.widget.Toast;
-
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.UUID;
+
+/*My main activity, in this class I set a connection between the phone and the bluetooth device,
+* extracting MY location from phone's GPS, sending the location- longitude and latitude to arduino,
+* changing to ManualActivity, SettingsActivity screens and also implement reconnection button.*/
 
 public class MainActivity extends AppCompatActivity {
     private BluetoothAdapter btAdapter = null;
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ONE_MINUTE = 1000 * 60 * 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 3;
 
+    //android studio libraries in order to extract my location
     LocationManager locationManager;
     Location currentBestLocation;
     LocationListener locationListener;
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //define the TextView in order to write in the text box the cordenations.
         GPS_Value = findViewById(R.id.GPS_Value_ID);
 
+        //function to set connection
         ConnectToBT();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                //Since I need to retrieve data from SettingScreen I used "startActivityForResult"
                 startActivityForResult(SettingScreen, 1);
             }
         });
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //In this function I check every few seconds (30s or so) for a new location to update the carrier for a new location.
     private boolean isBetterLocation(Location location, Location currBest)
     {
         if (currBest == null){
@@ -179,11 +182,10 @@ public class MainActivity extends AppCompatActivity {
             // Location is newer by 1 minute! User probs moved to use it!!
             return true;
         }else if (isSignificantlyOlder){
-            // Eww the new location is stale don't use it !!
             return false;
         }
 
-        // Check for the given accuracy if location
+        // Check for the given accuracy of location
         int accuracyDelta = (int) (location.getAccuracy() - currBest.getAccuracy());
         boolean isMoreAccurate = accuracyDelta < 0;
         boolean isLessAccurate = accuracyDelta > 0;
@@ -212,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
         return provider1.equals(provider2);
     }
 
-    //send the phone location to Arduino
+    //Phone location will be received by Arduino
     private void send(Location location)
     {
         if (btSocket!=null)
@@ -230,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Requesting location permissions.
     private void initLocationRequest(LocationListener locationListener)
     {
         if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -244,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
     }
 
-    //retrieve the distance data from SettingsActivity
+    //Retrieve the distance between carrier and user from SettingsActivity
     void SettingsActivity(int requestCode, int resultCode, Intent data) throws IOException
     {
         if (requestCode == 1) {
@@ -255,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Automatic bluetooth connection
     public void ConnectToBT()
     {
         this.btSocket = btSocket;
@@ -263,11 +267,12 @@ public class MainActivity extends AppCompatActivity {
 
         btAdapter = BluetoothAdapter.getDefaultAdapter(); //Bluetooth definition
         //    System.out.println(btAdapter.getBondedDevices());
-        BluetoothDevice hc05 = btAdapter.getRemoteDevice("98:D3:51:F5:B4:73"); //connect to my hc-05 via mac adress
+        BluetoothDevice hc05 = btAdapter.getRemoteDevice("98:D3:51:F5:B4:73"); //Connect to my hc-05 via mac adress
         //   System.out.println(hc05.getName());
 
+        //Creating the socket, if fail, try twice more
         int counter = 0;
-        do {    //creating the socket, if fail, try twice more
+        do {
             try {
                 btSocket = hc05.createRfcommSocketToServiceRecord(mUUID);
                 System.out.println(btSocket);
@@ -290,10 +295,9 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException e) {
             e.printStackTrace();
         }
-
-        BluetoothSocket finalBtSocket = btSocket;
     }
 
+    //When the user close the app.
     @Override
     protected void onDestroy() {
         super.onDestroy();

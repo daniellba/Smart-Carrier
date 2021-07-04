@@ -20,6 +20,11 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Set;
 
+
+
+/*In this class im implemanting bluetooth devices in a list.
+* -unfortunatly not in use.*/
+
 public class DeviceList extends AppCompatActivity {
     Button btnPaired, dbtnMain;
     ListView deviceList;
@@ -89,6 +94,7 @@ public class DeviceList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Setting the connection between the phone to the device chosen
     private void pairedDevicesList(){
         pairedDevices = myBluetooth.getBondedDevices();
         ArrayList list = new ArrayList();
@@ -118,7 +124,7 @@ public class DeviceList extends AppCompatActivity {
             Intent i = new Intent(DeviceList.this, MainActivity.class);
 
             //Change the activity.
-            i.putExtra(EXTRA_ADDRESS, address); //this will be received at GpsControll (class) Activity
+            i.putExtra(EXTRA_ADDRESS, address); //this will be received at MainActivity (class)
             //Toast.makeText(getApplicationContext(), "checking if I made to this point", Toast.LENGTH_LONG).show();
             startActivity(i);
         }

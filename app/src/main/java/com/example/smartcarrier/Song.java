@@ -1,6 +1,7 @@
 package com.example.smartcarrier;
 import android.net.Uri;
 
+/*In this class I define what is song, taking all it's data*/
 public class Song
 {
     private long id, size;
