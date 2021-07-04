@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.settings_screen);
         {
             About_TXV = (TextView)findViewById(R.id.About_TXV);
