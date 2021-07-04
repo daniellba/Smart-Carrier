@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+
 public class SettingsActivity extends AppCompatActivity {
     int DistanceValue = 1;
     TextView About_TXV;
@@ -43,17 +45,15 @@ public class SettingsActivity extends AppCompatActivity {
                 if (checked)
                     DistanceValue = 3;
                     break;
-
         }
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
+        super.onBackPressed();
         Toast.makeText(getApplicationContext(), "Distance set to " + DistanceValue + " Meter", Toast.LENGTH_LONG).show();
         Intent i = new Intent();
         i.putExtra("Distance", DistanceValue);
         setResult(RESULT_OK, i);
-        finish();
     }
 }

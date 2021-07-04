@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -22,6 +23,7 @@ public class ManualScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_screen);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Forward_BTN = findViewById(R.id.Forward_BTN);
         Backward_BTN = findViewById(R.id.Backward_BTN);
@@ -119,36 +121,6 @@ public class ManualScreen extends AppCompatActivity {
                 return false;
             }
         });
-
-
-   /*   Forward_BTN.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                try {
-                    OutputStream outputStream = finalBtSocket.getOutputStream();
-                    outputStream.write(1);
-                    System.out.println(outputStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
-//     InputStream inputStream = null; //receiving BT data
-//        try {
-//            inputStream = btSocket.getInputStream();
-//            inputStream.skip(inputStream.available());
-//
-//            for (int i = 0; i < 26; i++) {
-//
-//                byte b = (byte) inputStream.read();
-//                System.out.println((char) b);
-//
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
         //if the user pressed back button
         @Override
