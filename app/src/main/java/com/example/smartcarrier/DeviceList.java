@@ -119,7 +119,7 @@ public class DeviceList extends AppCompatActivity {
 
             //Change the activity.
             i.putExtra(EXTRA_ADDRESS, address); //this will be received at GpsControll (class) Activity
-            Toast.makeText(getApplicationContext(), "wazap", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "checking if I made to this point", Toast.LENGTH_LONG).show();
             startActivity(i);
         }
     };

@@ -303,6 +303,6 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (IOException e)
         { msg("Error - closing the socket.");}
-        finish(); //return to the first layout
+        finish();
     }
 }

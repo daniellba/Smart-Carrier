@@ -5,10 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-feature android:name="android.hardware.location.gps" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +26,7 @@
 
         <activity android:name=".ManualScreen" android:screenOrientation="landscape"/>
         <activity android:name=".MainActivity" ></activity>
+        <activity android:name=".SongListActivity" />
         <activity android:name=".DeviceList" ></activity>
         <activity android:name=".SettingsActivity" ></activity>
     </application>

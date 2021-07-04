@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
@@ -134,4 +136,17 @@ public class ManualScreen extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try
+        {
+            btSocket.close(); //close connection
+        }
+        catch (IOException e)
+        {
+            Toast.makeText(getApplicationContext(),"Error - closing the socket.",Toast.LENGTH_LONG).show();
+        }
+        finish();
     }
+}
