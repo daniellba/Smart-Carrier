@@ -19,6 +19,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.widget.Toast;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.UUID;
 
 /*My main activity, in this class I set a connection between the phone and the bluetooth device,
@@ -119,6 +120,16 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
+                try
+                {
+                    OutputStream outputStream = btSocket.getOutputStream();
+                    outputStream.write(-1);
+                    System.out.println(outputStream);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 try {
                     btSocket.close();
                     btSocket = null;

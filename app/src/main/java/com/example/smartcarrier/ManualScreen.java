@@ -153,8 +153,20 @@ public class ManualScreen extends AppCompatActivity {
         super.onBackPressed();
         try
         {
+            OutputStream outputStream = btSocket.getOutputStream();
+            outputStream.write(-1);
+            System.out.println(outputStream);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try
+        {
             btSocket.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
